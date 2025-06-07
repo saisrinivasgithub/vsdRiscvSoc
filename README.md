@@ -70,8 +70,20 @@ make clean
 make -j$PARALLEL_JOBS
 ```
 ## 3.4 Missing Header Fix
-```
+```bash
 sudo ln -s / usr / include / x86_64 -linux -gnu / bits / usr / include / bits
 sudo ln -s / usr / include / x86_64 -linux -gnu / gnu / usr / include / gnu
 sudo ln -s / usr / include / x86_64 -linux -gnu / sys / usr / include / sys
+```
+# 4 Test Toolchain with Fixed Example
+```bash
+cat > test .c << EOF
+int _start () {
+return 0;
+}
+EOF
+riscv64 - unknown - elf - gcc - march = rv64imac - mabi = lp64 \
+- mcmodel = medany - nostartfiles - ffreestanding \
+-Wl ,- Ttext =0 x80000000 -o test . elf test . c
+file test . elf
 ```
