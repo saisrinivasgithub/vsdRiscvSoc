@@ -48,3 +48,11 @@ echo ’ export PATH=/opt/riscv64 -elf/ bin : $PATH ’ >> ~/.bashrc
 source ~/.bashrc
 riscv64 -unknown -elf -gcc --version
 ```
+# 3 Critical Troubleshooting Section
+# Fix common build failures:
+## 3.1 Submodule Fixes
+```bash
+cd riscv -gnu -toolchain
+git submodule deinit -f .
+git submodule update --init --recursive --depth 1 --jobs 8
+```
