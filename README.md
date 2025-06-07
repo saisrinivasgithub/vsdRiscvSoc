@@ -82,8 +82,8 @@ int _start () {
 return 0;
 }
 EOF
-riscv64 - unknown - elf - gcc - march = rv64imac - mabi = lp64 \
-- mcmodel = medany - nostartfiles - ffreestanding \
--Wl ,- Ttext =0 x80000000 -o test . elf test . c
+riscv64 -unknown -elf -gcc -march = rv64imac -mabi = lp64 \
+-mcmodel = medany -nostartfiles - ffreestanding \
+-Wl ,-Ttext =0 x80000000 -o test . elf test . c
 file test . elf
 ```
