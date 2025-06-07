@@ -21,3 +21,17 @@ https :// github . com / riscv -collab / riscv -gnu -toolchain . git
 cd riscv -gnu -toolchain
 git submodule update --init --recursive --depth 1 --jobs 8
 ```
+# 3. Configure with Fixed Parameters
+```bash
+./ configure -- prefix =/ opt / riscv64 - elf \
+-- with - arch = rv64imac \
+-- with - abi = lp64 \
+-- with - cmodel = medany \
+-- with - newlib \
+-- without - headers \
+-- disable - shared \
+-- disable - threads \
+-- disable - gdb \
+-- disable - libssp \
+-- disable - libquadmath
+```
