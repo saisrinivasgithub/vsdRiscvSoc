@@ -36,3 +36,9 @@ git submodule update --init --recursive --depth 1 --jobs 8
 --disable -libssp \
 --disable -libquadmath
 ```
+#  4. Build with Fixed Parallelism
+```bash
+PARALLEL_JOBS =$(($(nproc)/2))
+make -j$PARALLEL_JOBS
+sudo make install
+```
