@@ -7,4 +7,10 @@ installation guide for the RISC-V GNU toolchain targeting RV64 bare-metal system
 sudo apt update
 sudo apt install autoconf automake autotools-dev curl python3 
 ```
-g
+# Corrected Installation Steps
+# 1.Create Workspace
+```bash
+export WORKSPACE=$HOME/riscv-toolchain
+mkdir -p $WORKSPACE
+cd $WORKSPACE
+```
