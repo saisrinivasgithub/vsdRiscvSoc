@@ -16,8 +16,8 @@ cd $WORKSPACE
 ```
 # 2. Clone Repository with Fixes
 ```bash
-git clone -- depth 1 -- branch 2024.04.05\
-https :// github . com / riscv - collab / riscv - gnu - toolchain . git
-cd riscv - gnu - toolchain
-git submodule update -- init -- recursive -- depth 1 -- jobs 8
+git clone --depth 1 --branch 2024.04.05\
+https :// github . com / riscv -collab / riscv -gnu -toolchain . git
+cd riscv -gnu -toolchain
+git submodule update --init --recursive --depth 1 --jobs 8
 ```
