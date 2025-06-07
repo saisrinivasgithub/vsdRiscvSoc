@@ -42,3 +42,9 @@ PARALLEL_JOBS =$(($(nproc)/2))
 make -j$PARALLEL_JOBS
 sudo make install
 ```
+# 5. Environment Setup with Verification
+```bash
+echo ’ export PATH=/opt/riscv64 -elf/ bin : $PATH ’ >> ~/.bashrc
+source ~/.bashrc
+riscv64 -unknown - elf - gcc -- version
+```
