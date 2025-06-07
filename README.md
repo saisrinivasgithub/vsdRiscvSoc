@@ -1,28 +1,28 @@
 # vsdRiscvSoc
 ## How to Install and Unpack the RISC-V Toolchain
 Installation guide for the RISC-V GNU toolchain targeting RV64 bare-metal systems. This version fixes common build errors and includes essential troubleshooting steps.
-# Prerequisites
+# 1 Prerequisites
 
 ```bash
 #Ubuntu
 sudo apt update
 sudo apt install autoconf automake autotools-dev curl python3 
 ```
-# Corrected Installation Steps
-# 1.Create Workspace
+# 2 Corrected Installation Steps
+## 2.1 Create Workspace
 ```bash
 export WORKSPACE=$HOME/riscv-toolchain
 mkdir -p $WORKSPACE
 cd $WORKSPACE
 ```
-# 2. Clone Repository with Fixes
+## 2.2 Clone Repository with Fixes
 ```bash
 git clone --depth 1 --branch 2024.04.05\
 https :// github . com / riscv -collab / riscv -gnu -toolchain . git
 cd riscv -gnu -toolchain
 git submodule update --init --recursive --depth 1 --jobs 8
 ```
-# 3. Configure with Fixed Parameters
+## 2.3 Configure with Fixed Parameters
 ```bash
 ./configure --prefix=/opt/riscv64 - elf \
 --with -arch=rv64imac \
@@ -36,13 +36,13 @@ git submodule update --init --recursive --depth 1 --jobs 8
 --disable -libssp \
 --disable -libquadmath
 ```
-#  4. Build with Fixed Parallelism
+##  2.4 Build with Fixed Parallelism
 ```bash
 PARALLEL_JOBS =$(($(nproc)/2))
 make -j$PARALLEL_JOBS
 sudo make install
 ```
-# 5. Environment Setup with Verification
+## 2.5 Environment Setup with Verification
 ```bash
 echo ’ export PATH=/opt/riscv64 -elf/ bin : $PATH ’ >> ~/.bashrc
 source ~/.bashrc
