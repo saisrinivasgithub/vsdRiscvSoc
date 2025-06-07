@@ -6,4 +6,5 @@ installation guide for the RISC-V GNU toolchain targeting RV64 bare-metal system
 ```bash
 sudo apt update
 sudo apt install autoconf automake autotools-dev curl python3 
+```
 g
