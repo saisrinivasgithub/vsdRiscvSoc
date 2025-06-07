@@ -56,3 +56,10 @@ cd riscv -gnu -toolchain
 git submodule deinit -f .
 git submodule update --init --recursive --depth 1 --jobs 8
 ```
+## 3.2 Memory Error Fix
+```bash
+sudo fallocate -l 8G / swapfile
+sudo chmod 600 / swapfile
+sudo mkswap / swapfile
+sudo swapon / swapfile
+```
