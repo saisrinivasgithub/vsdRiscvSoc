@@ -46,5 +46,5 @@ sudo make install
 ```bash
 echo ’ export PATH=/opt/riscv64 -elf/ bin : $PATH ’ >> ~/.bashrc
 source ~/.bashrc
-riscv64 -unknown - elf - gcc -- version
+riscv64 -unknown -elf -gcc --version
 ```
