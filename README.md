@@ -87,4 +87,4 @@ riscv64 -unknown -elf -gcc -march = rv64imac -mabi = lp64 \
 -Wl ,-Ttext =0 x80000000 -o test . elf test . c
 file test . elf
 ```
-! [Alt text] (Screenshot from 2025-06-06 16-28-53.png)
+! [Screenshot from 2025-06-06 16-28-53] (images/Screenshot from 2025-06-06 16-28-53.png)
