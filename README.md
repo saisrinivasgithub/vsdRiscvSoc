@@ -63,3 +63,9 @@ sudo chmod 600 /swapfile
 sudo mkswap /swapfile
 sudo swapon /swapfile
 ```
+## 3.3 Compiler Error Fix
+```bash
+export CXXFLAGS ="-O1"
+make clean
+make -j$PARALLEL_JOBS
+```
