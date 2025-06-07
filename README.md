@@ -69,3 +69,9 @@ export CXXFLAGS ="-O1"
 make clean
 make -j$PARALLEL_JOBS
 ```
+## 3.4 Missing Header Fix
+```
+sudo ln -s / usr / include / x86_64 -linux -gnu / bits / usr / include / bits
+sudo ln -s / usr / include / x86_64 -linux -gnu / gnu / usr / include / gnu
+sudo ln -s / usr / include / x86_64 -linux -gnu / sys / usr / include / sys
+```
