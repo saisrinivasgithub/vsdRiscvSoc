@@ -284,3 +284,8 @@ hexdump -v -e '4/1 "%02x " "\n"' hello.bin
 ```
 ### output:
 ![Hex Image](./hex.png)
+### 2. Disassemble the ELF File
+```bash
+riscv64-unknown-elf-objdump -d hello.elf
+```
+### output (with column explanations):
