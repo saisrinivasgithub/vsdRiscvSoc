@@ -312,7 +312,7 @@ riscv64-unknown-elf-objdump -D -b binary -m riscv:rv32 -M no-aliases hello.bin
 - -m riscv:rv32: Target architecture
 - -M no-aliases: Show raw instructions (e.g., c.addi instead of addi)
 ### Output:
-
+![Hex3 Image](./hex3.png)
 ### 4. Key objdump Flags
 | Flag          | Purpose                         |
 |------------------|-------------------------------------|
