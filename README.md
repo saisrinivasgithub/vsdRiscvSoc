@@ -165,3 +165,4 @@ qemu-system-riscv32 -nographic -machine virt \
     -bios none -kernel hello.elf
 ```
 ### Expected Output:
+![Screenshot](./Screenshot%20from%202025-06-08%2013-01-25.png)
