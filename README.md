@@ -264,3 +264,8 @@ riscv64-unknown-elf-gcc -S -march=rv32imac -mabi=ilp32 -O0 hello.c -o hello.s
 2. ### PC-Relative Jumps:
 - jal uses relative addressing (3f65 = jump to 0x80000000)
 3. ### Inefficiencies:
+- Redundant loads/stores due to -O0
+- Unnecessary stack ops in _start
+4. ### Memory Layout:
+- Code starts at 0x80000000 (common RISC-V boot address)
+- String likely at 0x8000008c (visible in full objdump)
