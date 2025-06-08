@@ -270,3 +270,16 @@ riscv64-unknown-elf-gcc -S -march=rv32imac -mabi=ilp32 -O0 hello.c -o hello.s
 - Code starts at 0x80000000 (common RISC-V boot address)
 - String likely at 0x8000008c (visible in full objdump)
 ![Screenshot](Screenshot%20from%202025-06-08%2015-18-10.png)
+# Hex Dump & Disassembly
+## Show me how to turn my ELF into a raw hex and to disassemble it with objdump. What do each columns mean?
+### 1. Convert ELF to Raw Binary (Hex)
+```bash
+riscv64-unknown-elf-objcopy -O binary hello.elf hello.bin
+```
+- -O binary: Output format (raw binary)
+- Result: hello.bin (contains only executable code/data, no headers)
+### To view hexdump:
+```bash
+hexdump -v -e '4/1 "%02x " "\n"' hello.bin
+```
+### output:
