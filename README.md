@@ -300,8 +300,8 @@ riscv64-unknown-elf-objdump -d hello.elf
 - Format: OPCODE DEST, SRC, IMMEDIATE
 4. ### Comment: # [1] [2] [3] [4]
 - Added manually to explain:
-        [1] = Stack pointer adjustment
-        [2] = Store operation
-        [3] = Frame pointer setup
-        [4] = Function body
+        - [1] = Stack pointer adjustment
+        - [2] = Store operation
+        - [3] = Frame pointer setup
+        - [4] = Function body
 
