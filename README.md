@@ -283,3 +283,4 @@ riscv64-unknown-elf-objcopy -O binary hello.elf hello.bin
 hexdump -v -e '4/1 "%02x " "\n"' hello.bin
 ```
 ### output:
+![Hex Image](./hex.png)
