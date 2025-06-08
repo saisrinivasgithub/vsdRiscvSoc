@@ -89,3 +89,33 @@ file test . elf
 ```
 ![Screenshot](Screenshot%20from%202025-06-06%2016-28-53.png)
 ![Screenshot](Screenshot%20from%202025-06-08%2013-10-33.png)
+# Compile “Hello, RISC-V” 
+“Show me a minimal C ‘hello world’ that cross-compiles for RV32IMC and the exact gcc
+flags to produce an ELF.”
+# AI Response
+```c
+/ Minimal bare-metal RISC-V UART output
+#define UART_BASE 0x10000000  // Standard QEMU virt machine UART address
+
+void uart_putc(char c) {
+    volatile char *uart = (volatile char *)UART_BASE;
+    *uart = c;
+}
+
+
+void uart_puts(const char *s) {
+    while (*s) {
+        uart_putc(*s++);
+    }
+}
+
+int main() {
+    uart_puts("Hello, RISC-V World!\n");
+    return 0;
+}
+
+void _start() {
+    main();
+    while (1);  // Halt CPU
+}
+```
