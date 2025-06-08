@@ -290,3 +290,12 @@ riscv64-unknown-elf-objdump -d hello.elf
 ```
 ### output (with column explanations):
 ![Hex1 Image](./hex1.png)
+### Column Breakdown:
+1. ### Address: 80000000
+- Memory address where the instruction is loaded.
+2. ### Opcode: 7179
+- 16-bit compressed instruction (RV32IC). Full 32-bit instructions show 8 hex digits.
+3. ### Mnemonic: addi sp,sp,-48
+- Human-readable assembly.
+- Format: OPCODE DEST, SRC, IMMEDIATE
+4. ### Comment: # [1] [2] [3] [4]
