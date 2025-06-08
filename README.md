@@ -193,3 +193,74 @@ riscv64-unknown-elf-gcc -S -march=rv32imac -mabi=ilp32 -O0 hello.c -o hello.s
 80000024:	6145                	addi	sp,sp,48    # Deallocate stack
 80000026:	8082                	ret             # Return
 ```
+### Key Points:
+- Stack frame is oversized (48 bytes) due to -O0 (no optimizations)
+- UART address (0x10000000) is loaded in two steps:
+1. lui loads upper 20 bits
+2. sb stores the byte to the UART
+### uart_puts Function (Address: 0x80000028)
+```asm
+80000028:	1101                	addi	sp,sp,-32    # Allocate 32 bytes stack
+8000002a:	ce06                	sw	ra,28(sp)     # Save return address
+8000002c:	cc22                	sw	s0,24(sp)     # Save frame pointer
+8000002e:	1000                	addi	s0,sp,32     # Set new frame pointer
+80000030:	fea42623          	sw	a0,-20(s0)    # Store string pointer on stack
+80000034:	a819                	j	8000004a      # Jump to loop condition (first time)
+80000036:	fec42783          	lw	a5,-20(s0)    # Load string pointer
+8000003a:	00178713          	addi	a4,a5,1      # Increment pointer (a7 = a5 + 1)
+8000003e:	fee42623          	sw	a4,-20(s0)    # Store updated pointer
+80000042:	0007c783          	lbu	a5,0(a5)     # Load current char (a5 = *a5)
+80000046:	853e                	mv	a0,a5        # Move char to a0 (argument)
+80000048:	3f65                	jal	80000000     # Call uart_putc (PC-relative)
+8000004a:	fec42783          	lw	a5,-20(s0)    # Load string pointer
+8000004e:	0007c783          	lbu	a5,0(a5)     # Load current char
+80000052:	f3f5                	bnez	a5,80000036  # Loop if char != '\0'
+80000054:	0001                	nop             # Padding
+80000056:	0001                	nop             # Padding
+80000058:	40f2                	lw	ra,28(sp)    # Restore return address
+8000005a:	4462                	lw	s0,24(sp)    # Restore frame pointer
+8000005c:	6105                	addi	sp,sp,32    # Deallocate stack
+8000005e:	8082                	ret             # Return
+```
+### Loop Structure:
+1. Initialization: Jump directly to condition check (0x8000004a)
+2. Body: Load char → print → increment pointer (0x80000036-0x80000048)
+3. Condition: Check for null terminator (0x8000004a-0x80000052)
+### main Function (Address: 0x80000060)
+```asm
+80000060:	1141                	addi	sp,sp,-16    # Allocate 16 bytes stack
+80000062:	c606                	sw	ra,12(sp)     # Save return address
+80000064:	c422                	sw	s0,8(sp)      # Save frame pointer
+80000066:	0800                	addi	s0,sp,16     # Set frame pointer
+80000068:	800007b7          	lui	a5,0x80000    # Load upper bits of string addr
+8000006c:	08c78513          	addi	a0,a5,140    # a0 = 0x8000008c (string addr)
+80000070:	3f65                	jal	80000028     # Call uart_puts
+80000072:	4781                	li	a5,0         # Load return value (0)
+80000074:	853e                	mv	a0,a5        # Move to return register (a0)
+80000076:	40b2                	lw	ra,12(sp)    # Restore return address
+80000078:	4422                	lw	s0,8(sp)     # Restore frame pointer
+8000007a:	0141                	addi	sp,sp,16    # Deallocate stack
+8000007c:	8082                	ret             # Return
+```
+### String Address Calculation:
+- 0x8000008c points to the stored string in memory (not shown in disassembly)
+- lui + addi is RISC-V's way to load 32-bit addresses
+### _start Entry Point (Address: 0x8000007e)
+```asm
+8000007e:	1141                	addi	sp,sp,-16    # Allocate stack (unused)
+80000080:	c606                	sw	ra,12(sp)     # Save ra (unnecessary)
+80000082:	c422                	sw	s0,8(sp)      # Save s0 (unnecessary)
+80000084:	0800                	addi	s0,sp,16     # Set frame pointer
+80000086:	3fe9                	jal	80000060     # Call main (PC-relative)
+80000088:	a001                	j	80000088      # Infinite loop (halt)
+```
+### Bare-Metal Behavior:
+- The j 80000088 creates an infinite loop (replaces OS exit)
+- Stack setup is redundant (no caller to return to)
+### Key Observations
+1. ### Stack Usage:
+- Each function creates its own stack frame
+- Callee-saved registers (ra, s0) are preserved
+2. ### PC-Relative Jumps:
+- jal uses relative addressing (3f65 = jump to 0x80000000)
+3. ### Inefficiencies:
