@@ -289,3 +289,4 @@ hexdump -v -e '4/1 "%02x " "\n"' hello.bin
 riscv64-unknown-elf-objdump -d hello.elf
 ```
 ### output (with column explanations):
+![Hex1 Image](./hex1.png)
