@@ -139,3 +139,29 @@ SECTIONS {
     _end = .;
 }
 ```
+Build Commands
+```bash
+riscv64-unknown-elf-gcc -march=rv32imac -mabi=ilp32 \
+    -nostdlib -ffreestanding -Tlink.ld \
+    -o hello.elf hello.c
+
+# Convert to raw binary (optional)
+riscv64-unknown-elf-objcopy -O binary hello.elf hello.bin
+```
+# Key Details:
+# UART Address:
+0x10000000 is standard for QEMU's virt machine
+Change if targeting different hardware
+# Memory Map:
+Text section starts at 0x80000000 (common RISC-V boot address)
+128KB RAM is sufficient for this example
+# Bare-Metal Essentials:
+No standard library (-nostdlib)
+No CRT startup (-ffreestanding)
+Custom _start that calls main()
+# To Run in QEMU:
+```bash
+qemu-system-riscv32 -nographic -machine virt \
+    -bios none -kernel hello.elf
+```
+# Expected Output:
