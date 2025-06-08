@@ -349,4 +349,3 @@ riscv64-unknown-elf-objdump -D -b binary -m riscv:rv32 -M no-aliases hello.bin
 - a0-a1: Hold return values (only a0 for 32-bit values).
 - sp: Must be identical on function exit.
 - ra: Contains return address (overwritten by jal).
-- 
