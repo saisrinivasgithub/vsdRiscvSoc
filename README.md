@@ -311,6 +311,8 @@ riscv64-unknown-elf-objdump -D -b binary -m riscv:rv32 -M no-aliases hello.bin
 - -D: Disassemble all sections
 - -m riscv:rv32: Target architecture
 - -M no-aliases: Show raw instructions (e.g., c.addi instead of addi)
+### Output:
+
 ### 4. Key objdump Flags
 | Flag          | Purpose                         |
 |------------------|-------------------------------------|
