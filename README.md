@@ -93,6 +93,7 @@ file test . elf
 “Show me a minimal C ‘hello world’ that cross-compiles for RV32IMC and the exact gcc
 flags to produce an ELF.”
 # AI Response
+hello.c code
 ```c
 / Minimal bare-metal RISC-V UART output
 #define UART_BASE 0x10000000  // Standard QEMU virt machine UART address
@@ -117,5 +118,24 @@ int main() {
 void _start() {
     main();
     while (1);  // Halt CPU
+}
+```
+link.ld code
+```c
+NTRY(_start)
+
+MEMORY {
+    RAM (rwx) : ORIGIN = 0x80000000, LENGTH = 128K
+}
+
+SECTIONS {
+    .text : {
+        *(.text._start)
+        *(.text*)
+    } > RAM
+
+    .data : { *(.data*) } > RAM
+    .bss : { *(.bss*) } > RAM
+    _end = .;
 }
 ```
