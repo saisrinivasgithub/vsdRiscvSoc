@@ -304,4 +304,18 @@ riscv64-unknown-elf-objdump -d hello.elf
 - [2] = Store operation
 - [3] = Frame pointer setup
 - [4] = Function body
-
+### 3. Disassemble Raw Binary
+```bash
+riscv64-unknown-elf-objdump -D -b binary -m riscv:rv32 -M no-aliases hello.bin
+```
+- -D: Disassemble all sections
+- -m riscv:rv32: Target architecture
+- -M no-aliases: Show raw instructions (e.g., c.addi instead of addi)
+### 4. Key objdump Flags
+| Flag          | Purpose                         |
+|------------------|-------------------------------------|
+| -d       | Disassemble only code sections   |
+| -S        | Mix source with disassembly (requires -g at compile)             |
+| -t        | Show symbols  |
+| -h  | Section headers         |
+| -j .text  | Focus on specific section             |
