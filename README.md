@@ -338,3 +338,15 @@ riscv64-unknown-elf-objdump -D -b binary -m riscv:rv32 -M no-aliases hello.bin
 | x12–x17    | a2–a7      | Function arguments                  | Caller               | Args 3–8                         |
 | x18–x27    | s2–s11     | Saved registers                      | Callee               | Preserved across calls           |
 | x28–x31    | t3–t6      | Temporary registers                  | Caller               | Additional scratch registers     |
+### Key Calling Convention Rules
+1. ### Caller-Saved (Volatile):
+- ra, t0-t6, a0-a7
+- Can be modified by called functions (save if needed after call).
+2. ### Callee-Saved (Non-Volatile):
+- sp, s0-s11
+- Must be preserved by called functions (save/restore if modified).
+3. ### Special Cases:
+- a0-a1: Hold return values (only a0 for 32-bit values).
+- sp: Must be identical on function exit.
+- ra: Contains return address (overwritten by jal).
+- 
