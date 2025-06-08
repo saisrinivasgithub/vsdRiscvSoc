@@ -173,7 +173,7 @@ Use GCC with -S flag to produce assembly output:
 ```bash
 riscv64-unknown-elf-gcc -S -march=rv32imac -mabi=ilp32 -O0 hello.c -o hello.s
 ```
--S: Stop after generating assembly (instead of object/ELF files)
--O0: Disable optimizations (for clearer prologue/epilogue)
+- -S: Stop after generating assembly (instead of object/ELF files)
+- -O0: Disable optimizations (for clearer prologue/epilogue)
 ### 2. Assembly Output (Main Function)
 
