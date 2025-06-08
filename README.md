@@ -166,3 +166,14 @@ qemu-system-riscv32 -nographic -machine virt \
 ```
 ### Expected Output:
 ![Screenshot](./Screenshot%20from%202025-06-08%2013-01-25.png)
+# From C to Assembly
+## How do I generate the .s file and explain the prologue/epilogue of the main function?
+### 1. Generate Assembly File (.s)
+Use GCC with -S flag to produce assembly output:
+```bash
+riscv64-unknown-elf-gcc -S -march=rv32imac -mabi=ilp32 -O0 hello.c -o hello.s
+```
+-S: Stop after generating assembly (instead of object/ELF files)
+-O0: Disable optimizations (for clearer prologue/epilogue)
+### 2. Assembly Output (Main Function)
+
