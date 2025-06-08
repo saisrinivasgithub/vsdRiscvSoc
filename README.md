@@ -321,3 +321,20 @@ riscv64-unknown-elf-objdump -D -b binary -m riscv:rv32 -M no-aliases hello.bin
 | -t        | Show symbols  |
 | -h  | Section headers         |
 | -j .text  | Focus on specific section             |
+# ABI & Register Cheat-Sheet
+### List all 32 RV32 integer registers with their ABI names and typical calling-convention roles.
+### RV32 Integer Registers & Calling Convention
+| Register   | ABI Name   | Description                          | Caller/Callee-Saved | Typical Use                     |
+|------------|------------|--------------------------------------|----------------------|----------------------------------|
+| x0         | zero       | Hardwired zero                       | -                    | Constant 0, discard results      |
+| x1         | ra         | Return address                       | Caller               | Stores `jal` return address      |
+| x2         | sp         | Stack pointer                        | Callee               | Points to stack                  |
+| x3         | gp         | Global pointer                       | -                    | Rarely used global base pointer  |
+| x4         | tp         | Thread pointer                       | -                    | Thread-local storage pointer     |
+| x5–x7      | t0–t2      | Temporary registers                  | Caller               | Scratch registers                |
+| x8         | s0/fp      | Saved register / Frame pointer      | Callee               | Base address of current frame    |
+| x9         | s1         | Saved register                       | Callee               | Preserved across calls           |
+| x10–x11    | a0–a1      | Function arguments / Return values  | Caller               | Args 1–2, return values          |
+| x12–x17    | a2–a7      | Function arguments                  | Caller               | Args 3–8                         |
+| x18–x27    | s2–s11     | Saved registers                      | Callee               | Preserved across calls           |
+| x28–x31    | t3–t6      | Temporary registers                  | Caller               | Additional scratch registers     |
