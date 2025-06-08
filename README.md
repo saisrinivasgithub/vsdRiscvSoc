@@ -88,4 +88,4 @@ riscv64 -unknown -elf -gcc -march = rv64imac -mabi = lp64 \
 file test . elf
 ```
 ![Screenshot](Screenshot%20from%202025-06-06%2016-28-53.png)
-
+![Screenshot](Screenshot%20from%202025-06-08%2013-10-33.png)
