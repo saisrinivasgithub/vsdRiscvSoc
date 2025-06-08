@@ -176,4 +176,20 @@ riscv64-unknown-elf-gcc -S -march=rv32imac -mabi=ilp32 -O0 hello.c -o hello.s
 - -S: Stop after generating assembly (instead of object/ELF files)
 - -O0: Disable optimizations (for clearer prologue/epilogue)
 ### 2. Assembly Output (Main Function)
-
+###  uart_putc Function (Address: 0x80000000)
+```asm
+80000000:	7179                	addi	sp,sp,-48      # Allocate 48 bytes stack space
+80000002:	d622                	sw	s0,44(sp)      # Save frame pointer (s0) on stack
+80000004:	1800                	addi	s0,sp,48      # Set new frame pointer (s0 = sp + 48)
+80000006:	87aa                	mv	a5,a0         # Move char argument (a0) to a5
+80000008:	fcf40fa3          	sb	a5,-33(s0)    # Store char on stack (byte)
+8000000c:	100007b7          	lui	a5,0x10000    # Load UART base addr (0x10000 << 12)
+80000010:	fef42623          	sw	a5,-20(s0)    # Store UART addr on stack
+80000014:	fec42783          	lw	a5,-20(s0)    # Reload UART addr
+80000018:	fdf44703          	lbu	a4,-33(s0)   # Load char from stack
+8000001c:	00e78023          	sb	a4,0(a5)      # Write char to UART (*(a5) = a4)
+80000020:	0001                	nop             # No-operation (padding)
+80000022:	5432                	lw	s0,44(sp)    # Restore frame pointer
+80000024:	6145                	addi	sp,sp,48    # Deallocate stack
+80000026:	8082                	ret             # Return
+```
