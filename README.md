@@ -349,3 +349,40 @@ riscv64-unknown-elf-objdump -D -b binary -m riscv:rv32 -M no-aliases hello.bin
 - a0-a1: Hold return values (only a0 for 32-bit values).
 - sp: Must be identical on function exit.
 - ra: Contains return address (overwritten by jal).
+# Stepping with GDB
+### Start QEMU in another terminal with debugging enabled
+```bash
+qemu-system-riscv32 -nographic -machine sifive_e -kernel hello.elf -S -gdb tcp::1234
+```
+### Connect GDB to QEMU 
+```bash
+riscv32-unknown-elf-gdb hello.elf
+```
+Inside the GDB
+```bash
+(gdb) target remote :1234
+```
+Output
+```bash
+Remote debugging using :1234
+0x00001004 in ?? ()
+```
+### Set breakpoint at main and continue
+```bash
+(gdb) break main
+Breakpoint 1 at 0x1014a: file hello.c, line 4.
+(gdb) continue
+```
+Problem: At this point, QEMU consistently froze after hitting "continue".
+Attempting to interrupt using Ctrl+C resulted in:
+```bash
+Program received signal SIGINT, Interrupt.
+0x00000000 in ?? ()
+```
+Stepping through with stepi stayed stuck at 0x00000000:
+```bash
+(gdb) stepi
+0x00000000 in ?? ()
+```
+### Output
+
