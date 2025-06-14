@@ -1,4 +1,4 @@
-my_folder/README.md
+vsdRicvSoc/README.md
 # vsdRiscvSoc
 ## How to Install and Unpack the RISC-V Toolchain
 Installation guide for the RISC-V GNU toolchain targeting RV64 bare-metal systems. This version fixes common build errors and includes essential troubleshooting steps.
