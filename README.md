@@ -385,4 +385,5 @@ Stepping through with stepi stayed stuck at 0x00000000:
 0x00000000 in ?? ()
 ```
 ### Output
+![Final Output](./finaloutput.png)
 
