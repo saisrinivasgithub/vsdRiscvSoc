@@ -373,7 +373,7 @@ Remote debugging using :1234
 Breakpoint 1 at 0x1014a: file hello.c, line 4.
 (gdb) continue
 ```
-Problem: At this point, QEMU consistently froze after hitting "continue".\\
+Problem: At this point, QEMU consistently froze after hitting "continue".<br>
 Attempting to interrupt using Ctrl+C resulted in:
 ```bash
 Program received signal SIGINT, Interrupt.
