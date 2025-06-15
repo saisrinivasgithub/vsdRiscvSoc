@@ -413,3 +413,4 @@ Connect to QEMU's GDB server:
 (gdb) target remote :1234
 ```
 info registers Shows the current values of CPU registers (e.g., ra, sp, gp, a0, etc.)
+![emulator](./emulator.png)
