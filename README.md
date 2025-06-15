@@ -1,5 +1,5 @@
 # vsdRiscvSoc
-## How to Install and Unpack the RISC-V Toolchain
+## Task:1 How to Install and Unpack the RISC-V Toolchain
 Installation guide for the RISC-V GNU toolchain targeting RV64 bare-metal systems. This version fixes common build errors and includes essential troubleshooting steps.
 # 1 Prerequisites
 
@@ -89,7 +89,7 @@ file test . elf
 ```
 ![Screenshot](Screenshot%20from%202025-06-06%2016-28-53.png)
 ![Screenshot](Screenshot%20from%202025-06-08%2013-10-33.png)
-# Compile “Hello, RISC-V” 
+# Task2: Compile “Hello, RISC-V” 
 “Show me a minimal C ‘hello world’ that cross-compiles for RV32IMC and the exact gcc
 flags to produce an ELF.”
 # AI Response
@@ -166,7 +166,7 @@ qemu-system-riscv32 -nographic -machine virt \
 ```
 ### Expected Output:
 ![Screenshot](./Screenshot%20from%202025-06-08%2013-01-25.png)
-# From C to Assembly
+# Task:3 From C to Assembly
 ## How do I generate the .s file and explain the prologue/epilogue of the main function?
 ### 1. Generate Assembly File (.s)
 Use GCC with -S flag to produce assembly output:
@@ -270,7 +270,7 @@ riscv64-unknown-elf-gcc -S -march=rv32imac -mabi=ilp32 -O0 hello.c -o hello.s
 - Code starts at 0x80000000 (common RISC-V boot address)
 - String likely at 0x8000008c (visible in full objdump)
 ![Screenshot](Screenshot%20from%202025-06-08%2015-18-10.png)
-# Hex Dump & Disassembly
+# Task:4 Hex Dump & Disassembly
 ## Show me how to turn my ELF into a raw hex and to disassemble it with objdump. What do each columns mean?
 ### 1. Convert ELF to Raw Binary (Hex)
 ```bash
@@ -321,7 +321,7 @@ riscv64-unknown-elf-objdump -D -b binary -m riscv:rv32 -M no-aliases hello.bin
 | -t        | Show symbols  |
 | -h  | Section headers         |
 | -j .text  | Focus on specific section             |
-# ABI & Register Cheat-Sheet
+# Task:5 ABI & Register Cheat-Sheet
 ### List all 32 RV32 integer registers with their ABI names and typical calling-convention roles.
 ### RV32 Integer Registers & Calling Convention
 | Register   | ABI Name   | Description                          | Caller/Callee-Saved | Typical Use                     |
@@ -349,7 +349,7 @@ riscv64-unknown-elf-objdump -D -b binary -m riscv:rv32 -M no-aliases hello.bin
 - a0-a1: Hold return values (only a0 for 32-bit values).
 - sp: Must be identical on function exit.
 - ra: Contains return address (overwritten by jal).
-# Stepping with GDB
+# Task:6 Stepping with GDB
 ### Start QEMU in another terminal with debugging enabled
 ```bash
 qemu-system-riscv32 -nographic -machine sifive_e -kernel hello.elf -S -gdb tcp::1234
@@ -387,7 +387,7 @@ Stepping through with stepi stayed stuck at 0x00000000:
 ### Output
 ![Final Output](./finaloutput.png)
 ![Next Command](nextcommand.png)
-# Running Under an Emulator
+# Task:7 Running Under an Emulator
 Run your bare-metal RISC-V ELF program using an emulator like Spike or QEMU, and view the output through the UART console. This is especially useful when real hardware is not available.
 ### Compile your bare-metal program with debug symbols
 Use the following command to compile your C program (hello.c) with the linker script (linker.ld) and include debug info:
@@ -416,7 +416,7 @@ info registers Shows the current values of CPU registers (e.g., ra, sp, gp, a0, 
 ![emulator](./emulator.png)
 disassemble or disassemble Shows the assembly instructions around the program counter or for a specific function
 ![dump](./dump.png)
-# Exploring GCC Optimisation
+# Task:8 Exploring GCC Optimisation
 ### Question:
 “Compile the same file with -O0 vs -O2. What differences appear in the assembly and why?”
 ### Goal
