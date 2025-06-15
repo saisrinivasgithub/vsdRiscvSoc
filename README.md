@@ -697,3 +697,12 @@ _start:
     call main                 # Call main()
     j .                       # Infinite loop if main returns
 ```
+### Where to Get `crt0.S`
+- Option 1: Write Your Own
+-- Very short (usually ~30–50 lines of RISC-V assembly).
+- Option 2: Use from a Runtime Library
+-- Newlib and libc implementations often include crt0.S.
+-- You can extract one from:
+-- newlib source
+-- SiFive’s freedom-e-sdk
+-- Minimal RISC-V templates on GitHub (bare-metal-riscv)
