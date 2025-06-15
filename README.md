@@ -416,3 +416,110 @@ info registers Shows the current values of CPU registers (e.g., ra, sp, gp, a0, 
 ![emulator](./emulator.png)
 disassemble or disassemble Shows the assembly instructions around the program counter or for a specific function
 ![dump](./dump.png)
+# Exploring GCC Optimisation
+### Question:
+“Compile the same file with -O0 vs -O2. What differences appear in the assembly and why?”
+### Goal
+To analyze how different GCC optimization levels impact the generated assembly code by comparing the outputs of:
+- -O0: No optimization (preserves structure, useful for debugging)
+- -O2: Enables aggressive optimizations for performance and efficiency
+### Write a test C program
+```c
+// File: opt.c
+int square(int x) {
+    return x * x;
+}
+
+int unused_function() {
+    int y = 100;
+    return y;
+}
+
+int main() {
+    int a = 10;
+    int b = square(a);
+    return b;
+}
+```
+### Compile with -O0 (no optimization)
+```bash
+riscv32-unknown-elf-gcc -S -O0 opt.c -o opt_O0.s
+```
+This generates a verbose .s file with all functions and minimal optimization.
+### Step 3: Compile with -O2 (optimized)
+```bash
+riscv32-unknown-elf-gcc -S -O2 opt.c -o opt_O2.s
+```
+This will inline small functions, eliminate unused ones, and use registers more efficiently.
+### Compare the two versions
+```bash
+diff opt_O0.s opt_O2.s
+```
+# 🧪 GCC Optimization Levels: `-O0` vs `-O2`
+
+This project demonstrates how different GCC optimization levels (`-O0` vs `-O2`) affect the generated assembly code in RISC-V or any other target architecture.
+
+---
+
+## ⚙️ What is the difference between `-O0` and `-O2`?
+
+| Flag  | Optimization Level | Description                                                                 |
+|--------|--------------------|-----------------------------------------------------------------------------|
+| `-O0` | None               | No optimization. Compiler preserves code structure, useful for debugging.   |
+| `-O2` | High               | Aggressive optimizations for performance without significantly increasing binary size. |
+
+---
+
+## 🔍 What differences appear in the assembly?
+
+### ✅ With `-O0`:
+- The assembly is **longer** and more **verbose**.
+- All variables are **stored in memory** (RAM/stack), not registers.
+- **No instruction reordering** or **dead code elimination**.
+- **Function calls** are not inlined.
+- Easier to map each C line to assembly — **good for debugging**.
+
+### ✅ With `-O2`:
+- The assembly is **shorter**, **faster**, and more **efficient**.
+- **Unused variables** and **redundant operations** are removed.
+- **Smarter register allocation** — fewer memory accesses.
+- **Loops** may be **unrolled** or **strength-reduced**.
+- **Function inlining** replaces small function calls with their code.
+- **Instruction scheduling** improves performance through reordering.
+
+---
+
+## 🤔 Why do these differences occur?
+
+The `-O2` flag enables multiple optimization passes in GCC, such as:
+
+- 🔄 **Constant folding** – Compute values at compile-time.
+- ✂️ **Dead code elimination** – Remove unused code.
+- 🔁 **Loop invariant code motion** – Move static computations out of loops.
+- 📦 **Common subexpression elimination** – Avoid redundant calculations.
+- ➕ **Inlining** – Replace function calls with actual code.
+- 🔧 **Peephole optimization** – Simplify small instruction patterns.
+
+---
+
+## 🧠 Summary
+
+| Aspect             | `-O0`            | `-O2`           |
+|--------------------|------------------|-----------------|
+| Speed              | Slow             | Fast            |
+| Code Size          | Large            | Compact         |
+| Debugging          | Easy             | Harder          |
+| Optimization       | None             | High            |
+| Variable Location  | Mostly memory    | Mostly registers|
+| Function Calls     | As-is            | Often inlined   |
+
+---
+
+## 📂 How to Try
+
+```bash
+# Compile with no optimization
+riscv32-unknown-elf-gcc -O0 -S test.c -o test_O0.s
+
+# Compile with -O2 optimization
+riscv32-unknown-elf-gcc -O2 -S test.c -o test_O2.s
