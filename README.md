@@ -706,3 +706,4 @@ _start:
 -- newlib source
 -- SiFive’s freedom-e-sdk
 -- Minimal RISC-V templates on GitHub (bare-metal-riscv)
+![crt0](./crt0.png)
