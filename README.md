@@ -719,3 +719,67 @@ _start:
 - Use attribute((interrupt)) in C
 ### Full Code (with Comments)
 ![mtip](./mtip.png)
+#  Task:14 rv32imac vs rv32imc – What’s the “A”?
+### 🧠 Atomic Extension (`A`) in RV32IMAC
+
+The `'A'` in **RV32IMAC** stands for the **Atomic** extension, which adds atomic read-modify-write (RMW) instructions to the RISC-V ISA.
+
+---
+
+### ✅ What Are Atomic Instructions?
+
+Atomic instructions perform **read and write as a single, uninterruptible operation**.  
+This is crucial in **multithreaded or multiprocessor** environments where multiple cores or threads might access the same memory location concurrently.
+
+---
+
+### 🔧 Instructions Added by the 'A' Extension
+
+| Instruction    | Description                                                      |
+|----------------|------------------------------------------------------------------|
+| `LR.W`         | Load-Reserved: Loads a word and marks it for atomic access       |
+| `SC.W`         | Store-Conditional: Stores a word only if no other write occurred |
+| `AMOSWAP.W`    | Atomically swaps register value with memory                      |
+| `AMOADD.W`     | Atomically adds to memory                                        |
+| `AMOXOR.W`     | Atomically XORs with memory                                      |
+| `AMOAND.W`     | Atomically ANDs with memory                                      |
+| `AMOOR.W`      | Atomically ORs with memory                                       |
+| `AMOMIN.W`     | Stores the signed minimum of reg/memory                          |
+| `AMOMAX.W`     | Stores the signed maximum of reg/memory                          |
+| `AMOMINU.W`    | Stores the unsigned minimum                                      |
+| `AMOMAXU.W`    | Stores the unsigned maximum                                      |
+
+---
+
+### 🧩 Why Are They Useful?
+
+### 🛡️ Thread Safety
+- Prevents data races without needing locks or mutexes.
+
+### ⚙️ Efficient Synchronization
+- Used to implement semaphores, spinlocks, and lock-free data structures.
+
+### 🔄 Multiprocessor Consistency
+- Ensures memory updates are visible and consistent across cores.
+
+### 🔧 Build Higher-Level Concurrency Primitives
+- These primitives allow implementing:
+  - Compare-and-swap
+  - Fetch-and-add
+  - Mutex locks
+
+---
+
+### 📌 Example: Atomic Increment
+
+```c
+int atomic_increment(volatile int* ptr) {
+    int tmp;
+    asm volatile (
+        "amoadd.w %0, %2, %1"
+        : "=r"(tmp), "+A"(*ptr)
+        : "r"(1)
+    );
+    return tmp;
+}
+```
