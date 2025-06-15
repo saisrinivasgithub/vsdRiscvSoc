@@ -651,3 +651,49 @@ Flash and SRAM are **physically separate** memory components on a microcontrolle
 Flash:  0x00000000 – 0x0003FFFF
 SRAM:   0x20000000 – 0x2000FFFF
 ```
+# Task:12 Start-up Code & crt0
+### Question
+“What does crt0.S typically do in a bare-metal RISC-V program and where do I get one?”
+## 📘 What is `crt0.S`?
+`crt0` stands for **"C RunTime zero"** — it is the **first code executed before your `main()` function** in embedded or bare-metal systems.
+
+- `.S` indicates it's a **preprocessed assembly file**.
+- It is responsible for setting up the minimal runtime environment required to execute C code.
+
+---
+
+## 🔧 Responsibilities of `crt0.S`
+
+Here’s what typically happens inside `crt0.S`:
+
+### 1️⃣ Reset Handler / Entry Point
+Defines the **reset vector**, which is the first address the CPU jumps to after power-on or reset.
+
+### 2️⃣ Initialize Stack Pointer
+Sets up the **stack pointer (`sp`)** to a valid location in **SRAM**.
+
+### 3️⃣ Zero-Initialize `.bss` Section
+Clears global/static variables that are initialized to zero.
+
+### 4️⃣ Copy `.data` Section from Flash to SRAM
+Moves initialized variables from Flash (non-volatile memory) to RAM (SRAM) for read/write access.
+
+### 5️⃣ Call `main()`
+Once everything is ready, it **calls the `main()` function**, marking the start of your application logic.
+
+### 6️⃣ Infinite Loop or Exit
+If `main()` returns (which it shouldn't in embedded), it usually enters an **infinite loop** or calls `exit()`.
+
+---
+
+## 📌 Example: Simplified `crt0.S` Snippet for RISC-V
+
+```assembly
+.section .init
+.globl _start
+_start:
+    la sp, _stack_top         # Initialize stack pointer
+    call _init_data_bss       # Zero BSS, copy .data
+    call main                 # Call main()
+    j .                       # Infinite loop if main returns
+```
