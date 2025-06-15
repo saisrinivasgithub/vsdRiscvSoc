@@ -575,6 +575,6 @@ To write a function in C that returns the current value of the RISC-V cycle coun
 ## ✅ Example Inline Assembly
 
 ```c
-uint64_t cycles;
-__asm__ volatile ("rdcycle %[cycles]" : [cycles] "=r" (cycles));
+uint32_t c;
+asm volatile ("csrr %0, cycle" : "=r"(c));
 ```
