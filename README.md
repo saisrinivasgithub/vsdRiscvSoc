@@ -387,4 +387,29 @@ Stepping through with stepi stayed stuck at 0x00000000:
 ### Output
 ![Final Output](./finaloutput.png)
 ![Next Command](nextcommand.png)
-
+# Running Under an Emulator
+Run your bare-metal RISC-V ELF program using an emulator like Spike or QEMU, and view the output through the UART console. This is especially useful when real hardware is not available.
+### Compile your bare-metal program with debug symbols
+Use the following command to compile your C program (hello.c) with the linker script (linker.ld) and include debug info:
+```bash
+riscv32-unknown-elf-gcc -g -nostdlib -nostartfiles -T linker.ld -o hello.elf hello.c
+```
+### Run the ELF using QEMU
+Use QEMU's RISC-V system emulator to run your ELF and get UART output: 
+```bash
+qemu-system-riscv32 -nographic -machine sifive_e -kernel hello.elf
+```
+###  Debugging using GDB with QEMU
+Start QEMU with GDB server enabled:
+```bash
+qemu-system-riscv32 -nographic -machine sifive_e -kernel hello.elf -S -gdb tcp::1234
+```
+In another terminal, start GDB:
+```bash
+riscv32-unknown-elf-gdb hello.elf
+```
+Connect to QEMU's GDB server:
+```bash
+(gdb) target remote :1234
+```
+info registers Shows the current values of CPU registers (e.g., ra, sp, gp, a0, etc.)
