@@ -708,3 +708,14 @@ _start:
 -- Minimal RISC-V templates on GitHub (bare-metal-riscv)
   ### Minimal Example of `crt0.S`
 ![crt0](./crt0.png)
+# Task:13  Machine Timer Interrupt (MTIP) 
+### Question
+“Demonstrate how to enable the machine-timer interrupt (MTIP) and write a simple handler in C/asm.”
+### Method
+- Write to mtimecmp
+- Set mie (enable machine timer interrupt)
+- Set mstatus (enable global interrupt)
+- Point mtvec to a valid handler
+- Use attribute((interrupt)) in C
+### Full Code (with Comments)
+![mtip](./mtip.png)
