@@ -672,7 +672,7 @@ Defines the **reset vector**, which is the first address the CPU jumps to after 
 ### 2️⃣ Initialize Stack Pointer
 Sets up the **stack pointer (`sp`)** to a valid location in **SRAM**.
 
-### 3️⃣ Zero-Initialize `.bss` Section
+### 3️⃣ Zero-Initialize `.bss` SectionMinimal Example of `crt0.S`
 Clears global/static variables that are initialized to zero.
 
 ### 4️⃣ Copy `.data` Section from Flash to SRAM
@@ -706,4 +706,5 @@ _start:
 -- newlib source
 -- SiFive’s freedom-e-sdk
 -- Minimal RISC-V templates on GitHub (bare-metal-riscv)
+  ### Minimal Example of `crt0.S`
 ![crt0](./crt0.png)
