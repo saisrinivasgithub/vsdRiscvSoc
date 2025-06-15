@@ -623,3 +623,31 @@ void gpio_on() {
 “Provide a minimal linker script that places .text at 0x00000000 and .data at 0x10000000 for RV32IMC.”
 ### Minimal Linker Script
 ![linker](./linker.png)
+### 💡 Why Flash and SRAM Addresses Differ
+
+In embedded systems, Flash and SRAM are two fundamental types of memory, each serving different purposes and accessed through different address ranges.
+
+---
+
+### 1. 🧊 Different Physical Memories
+
+Flash and SRAM are **physically separate** memory components on a microcontroller or SoC.
+
+| Memory Type | Description |
+|-------------|-------------|
+| **Flash**   | Non-volatile — retains data even after power-off. Typically used for **program instructions and constants**. |
+| **SRAM**    | Volatile — data is lost when power is off. Used for **temporary data** like the **stack, heap, and global variables**. |
+
+---
+
+### 2. 🗺️ Memory Map Design
+
+- The CPU uses **memory-mapped addressing** to access both Flash and SRAM.
+- Each memory type is mapped to a **different address range**, set by the **chip's memory map**.
+
+📍 **Example (RISC-V / ARM Cortex-M)**
+
+```text
+Flash:  0x00000000 – 0x0003FFFF
+SRAM:   0x20000000 – 0x2000FFFF
+```
