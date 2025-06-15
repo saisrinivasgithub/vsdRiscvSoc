@@ -581,3 +581,4 @@ asm volatile ("csrr %0, cycle" : "=r"(c));
 # Task:10 Memory-Mapped I/O Demo
 “Show a bare-metal C snippet to toggle a GPIO register located at 0x10012000. How do I prevent the compiler from optimizing the store away?”
 ### Code
+![toggle](./toggle.png)
