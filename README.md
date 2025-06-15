@@ -414,3 +414,5 @@ Connect to QEMU's GDB server:
 ```
 info registers Shows the current values of CPU registers (e.g., ra, sp, gp, a0, etc.)
 ![emulator](./emulator.png)
+disassemble or disassemble Shows the assembly instructions around the program counter or for a specific function
+![dump](./dump.png)
