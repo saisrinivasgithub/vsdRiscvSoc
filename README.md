@@ -527,7 +527,7 @@ riscv32-unknown-elf-gcc -O2 -S test.c -o test_O2.s
 ### My Code
 GCC Optimisation 
 ![gcc](./gcc.png)
-# Inline Assembly Basics
+# Task9: Inline Assembly Basics
 ### Goal
 To write a function in C that returns the current value of the RISC-V cycle counter by accessing CSR register 0xC00 using inline assembly.
 ### C Function Code
@@ -577,3 +577,4 @@ To write a function in C that returns the current value of the RISC-V cycle coun
 ```c
 uint64_t cycles;
 __asm__ volatile ("rdcycle %[cycles]" : [cycles] "=r" (cycles));
+```
