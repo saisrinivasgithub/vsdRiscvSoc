@@ -582,3 +582,39 @@ asm volatile ("csrr %0, cycle" : "=r"(c));
 “Show a bare-metal C snippet to toggle a GPIO register located at 0x10012000. How do I prevent the compiler from optimizing the store away?”
 ### Code
 ![toggle](./toggle.png)
+### Explanation
+### 📌 Key Concepts
+### 🔒 `volatile`
+- Informs the compiler **not to optimize** accesses to the variable.
+- Essential when working with **hardware registers** or **memory-mapped I/O**.
+- Without `volatile`, the compiler might **skip or reorder** access because it doesn't see any effect on normal program logic.
+
+---
+
+### 🧾 `(uint32_t *) 0x10012000`
+- This **casts the GPIO base address** to a pointer of type `uint32_t *`.
+- Assumes the hardware register is **32-bit wide** (i.e., 4 bytes).
+
+---
+
+### 🖊️ `*gpio = 0x1;`
+- Writes the value `0x1` directly to the GPIO register.
+- This action could, for example, **set or turn ON a specific output pin**.
+
+---
+
+### 📐 Alignment
+- The address `0x10012000` is **4-byte aligned** (divisible by 4).
+- This is important because many systems require proper alignment for `uint32_t` access to avoid faults or undefined behavior.
+
+---
+
+### ✅ Example Code
+
+```c
+#define GPIO_ADDR 0x10012000
+
+void gpio_on() {
+    volatile uint32_t *gpio = (volatile uint32_t *) GPIO_ADDR;
+    *gpio = 0x1;  // Set pin or write to GPIO register
+}
