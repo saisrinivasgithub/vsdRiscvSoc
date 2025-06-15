@@ -523,3 +523,4 @@ riscv32-unknown-elf-gcc -O0 -S test.c -o test_O0.s
 
 # Compile with -O2 optimization
 riscv32-unknown-elf-gcc -O2 -S test.c -o test_O2.s
+### My Code
