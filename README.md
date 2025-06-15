@@ -532,3 +532,48 @@ GCC Optimisation
 To write a function in C that returns the current value of the RISC-V cycle counter by accessing CSR register 0xC00 using inline assembly.
 ### C Function Code
 ![rdcycle](./rdcycle.png)
+### Explanation of Each Part
+### 🧾 Inline Assembly in RISC-V: Reading Cycle Count using `rdcycle`
+### 📌 Explanation of Constraints
+
+### 🧱 `volatile` Keyword
+- Prevents the compiler from optimizing out or reordering the inline assembly block.
+- Ensures the block executes **exactly where it appears** in the C code.
+
+---
+
+### 🧮 `rdcycle %[cycles]`
+- `rdcycle` is the **RISC-V instruction** used to read the **Cycle CSR** (`0xC00`).
+- `%[cycles]` refers to the named **output operand** that receives the value.
+
+---
+
+### 🧾 Output Operand: `[cycles] "=r" (cycles)`
+
+| Component      | Meaning                                                |
+|----------------|--------------------------------------------------------|
+| `[cycles]`     | Symbolic name used inside the `asm` block              |
+| `"=r"`         | GCC constraint:                                        |
+| `=`            | Indicates a **write-only** operand                     |
+| `r`            | Use a **general-purpose register**                     |
+| `(cycles)`     | The **C variable** where the result will be stored     |
+
+---
+
+### 🚫 No Input Operands
+- The input section of the `asm` block is empty (`:`) because the `rdcycle` instruction only **reads** the CSR and does not require any inputs.
+
+---
+
+### 🔒 No Clobbers
+- The clobber section is also empty (`:`) since this assembly:
+  - Does **not modify memory**.
+  - Does **not use special registers** beyond the declared output.
+
+---
+
+## ✅ Example Inline Assembly
+
+```c
+uint64_t cycles;
+__asm__ volatile ("rdcycle %[cycles]" : [cycles] "=r" (cycles));
