@@ -526,4 +526,4 @@ riscv32-unknown-elf-gcc -O2 -S test.c -o test_O2.s
 ```
 ### My Code
 GCC Optimisation 
-![GCC Optimization](GCC_Optimisation.png)
+![GCC Optimisation](GCC_Optimisation.png)
