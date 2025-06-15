@@ -618,3 +618,7 @@ void gpio_on() {
     volatile uint32_t *gpio = (volatile uint32_t *) GPIO_ADDR;
     *gpio = 0x1;  // Set pin or write to GPIO register
 }
+```
+# Task:11 Linker Script 101
+“Provide a minimal linker script that places .text at 0x00000000 and .data at 0x10000000 for RV32IMC.”
+### Minimal Linker Script
