@@ -531,3 +531,4 @@ GCC Optimisation
 ### Goal
 To write a function in C that returns the current value of the RISC-V cycle counter by accessing CSR register 0xC00 using inline assembly.
 ### C Function Code
+![rdcycle](./rdcycle.png)
