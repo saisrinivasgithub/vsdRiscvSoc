@@ -792,4 +792,21 @@ int atomic_increment(volatile int* ptr) {
 - Demonstrate protection of a shared variable (shared_counter) from race conditions.
 ### Code:
 ![atomic](./atomic.png)
-
+Expected Output:
+```bash
+Shared counter: 3
+```
+### 🧵 Two-Thread Mutex Using `lr.w` / `sc.w` on RISC-V (RV32)
+This example demonstrates how to implement a simple **mutual exclusion (mutex)** mechanism between two pseudo-threads using **RISC-V's atomic instructions**: `lr.w` (load-reserved) and `sc.w` (store-conditional).
+### 🔧 Files
+- `mutex_lrsc.c`: Main source code with lock implementation and pseudo-threads.
+### 💡 Concept
+RISC-V provides atomic instructions for implementing synchronization mechanisms such as spinlocks.
+- `lr.w`: Load a word and mark the address as reserved.
+- `sc.w`: Store a word only if the reservation is still valid (no write by another core).
+This mechanism is used to implement a **lock** where only one thread at a time can enter the critical section.
+### 🧪 Simulation Flow
+We simulate two threads:
+- `thread1()` increments a shared resource by 1.
+- `thread2()` increments it by 2.
+Both threads acquire the same lock before accessing the shared resource and release it afterward.
