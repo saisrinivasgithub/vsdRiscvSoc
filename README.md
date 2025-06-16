@@ -791,7 +791,7 @@ int atomic_increment(volatile int* ptr) {
 - Use lr.w/sc.w instructions in inline assembly for spinlock mutex.
 - Demonstrate protection of a shared variable (shared_counter) from race conditions.
 ### Code:
-![atomic](./atomic.png)
+![atomic](./atomic.png) <br>
 Expected Output:
 ```bash
 Shared counter: 3
