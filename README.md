@@ -783,3 +783,13 @@ int atomic_increment(volatile int* ptr) {
     return tmp;
 }
 ```
+# Task 15: Atomic Test Program
+### Question:
+“Provide a two-thread mutex example (pseudo-threads in main) using lr.w/sc.w on RV32.”
+### Method:
+- Simulate two threads using functions in main.
+- Use lr.w/sc.w instructions in inline assembly for spinlock mutex.
+- Demonstrate protection of a shared variable (shared_counter) from race conditions.
+### Code:
+![atomic](./atomic.png)
+
