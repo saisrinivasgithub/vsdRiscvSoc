@@ -810,3 +810,20 @@ We simulate two threads:
 - `thread1()` increments a shared resource by 1.
 - `thread2()` increments it by 2.
 Both threads acquire the same lock before accessing the shared resource and release it afterward.
+# Task:16 Using Newlib printf Without an OS
+### Question
+“How do I retarget _write so that printf sends bytes to my memory-mapped UART?”
+### Answer Outline
+- Implement _write(int fd, char* buf, int len) that loops over bytes to UART_TX.
+- Re-link with -nostartfiles plus custom syscalls.c.
+- Run in QEMU and verify UART output.
+### Important Note on UART Address
+When running on QEMU with -machine sifive_e, the UART memory-mapped I/O address is 0x10013000, not 0x10000000. Using the wrong address will cause no output and program hang.
+###  Minimal `_write` Implementation
+![uart](./uart.png)
+### crt0.S file:
+![crto](./crto.png)
+###  linker.ld file:
+![linker](./linker.png)
+### build.sh file:
+![build](./build.png)
