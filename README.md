@@ -836,3 +836,66 @@ When running on QEMU with -machine sifive_e, the UART memory-mapped I/O address 
 Is RV32 little-endian by default? Show how to verify byte ordering with a union trick in C.
 ### Steps to check endianness in C
 ![end1](./end1.png)
+# RISC-V Bare-Metal Learning Journey
+
+## 🔍 What is RISC-V?
+
+**RISC-V** is an open-source **Instruction Set Architecture (ISA)**—a formal specification of how a processor should behave and what instructions it can execute (e.g., `add`, `load`, `branch`, etc.).
+
+### ❌ Common Misconceptions:
+
+- **RISC-V is not a processor**: It is a **specification**, not the actual hardware.
+- **RISC-V is not Verilog**: Processors can be implemented using Verilog or other HDLs, but RISC-V itself is **language-agnostic**.
+- **RISC-V is not a chip**: Chips like those from SiFive or Microchip may implement RISC-V, but the ISA itself is just the **blueprint**.
+
+Think of RISC-V like a **programming language**—it's not the program or the compiler, just the rules.
+
+---
+
+## 🎯 Purpose of This Project
+
+This project was part of a weekly hands-on learning exercise aimed at understanding embedded systems **from scratch** using the RISC-V architecture.
+
+Each task peeled back layers of abstraction that modern systems typically hide, giving us full control over:
+
+- How the processor boots
+- How code is executed
+- How peripherals are accessed
+
+---
+
+## 🧩 Tasks & Concepts Learned
+
+| Task | Concept |
+|------|---------|
+| 🔧 **Toolchain Setup** | Cross-compiled C code to RISC-V ELF binaries |
+| 🔍 **Disassembly & Register Analysis** | Learned how C translates to assembly and how CPU state changes |
+| 🧠 **Memory-Mapped I/O** | Controlled hardware by writing to specific memory addresses |
+| 🧾 **Linker Scripts** | Mapped code/data to precise memory regions |
+| 🛫 **Start-up Code (crt0.S)** | Understood pre-`main()` boot logic: setting stack, zeroing `.bss`, jumping to main |
+| ⏱ **Interrupt Handling** | Set up and responded to timer interrupts (bare-metal IRQs) |
+| 🔐 **Atomic Operations & Endianness** | Used `lr.w/sc.w` for concurrency and verified memory byte order |
+| 🧵 **Retargeted printf via UART** | Implemented minimal `printf` by directly writing to UART memory-mapped registers |
+
+---
+
+## 🧠 Final Reflection
+
+By the end of these tasks, we:
+
+- Built RISC-V programs that run **without an operating system**
+- Handled **low-level initialization and interrupts**
+- Interfaced directly with **memory and peripherals**
+- Printed debug messages using a **custom UART implementation**
+
+This journey provided a **full-stack embedded experience**, from boot to bare-metal application logic. We didn't just "use" RISC-V—we built on it, explored it, and debugged it line-by-line.
+
+---
+
+## 📚 Why This Matters
+
+This foundation is essential not just for embedded systems, but also for:
+
+- **Operating System Development**
+- **Device Driver Programming**
+- **Processor Architecture & Design**
