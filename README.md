@@ -831,3 +831,8 @@ When running on QEMU with -machine sifive_e, the UART memory-mapped I/O address 
 ![command](./command.png)
 ### My Output:
 ![output](./output.png)
+# Task 17: Endianness & Struct Packing
+### Question:
+Is RV32 little-endian by default? Show how to verify byte ordering with a union trick in C.
+### Steps to check endianness in C
+![end1](./end1.png)
