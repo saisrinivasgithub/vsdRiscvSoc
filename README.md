@@ -822,7 +822,7 @@ When running on QEMU with -machine sifive_e, the UART memory-mapped I/O address 
 ###  Minimal `_write` Implementation
 ![uart](./uart.png)
 ### crt0.S file:
-![crto](./crto.png)
+![crt0](./crt0.png)
 ###  linker.ld file:
 ![linker](./linker.png)
 ### build.sh file:
