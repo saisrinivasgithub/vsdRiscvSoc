@@ -827,3 +827,7 @@ When running on QEMU with -machine sifive_e, the UART memory-mapped I/O address 
 ![linker](./linker.png)
 ### build.sh file:
 ![build](./build.png)
+### Terminal commands:
+![command](./command.png)
+### My Output:
+![output](./output.png)
