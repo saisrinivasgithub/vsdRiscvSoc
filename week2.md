@@ -1,5 +1,5 @@
 # Week-2
-## Caravel SoC - Overview of Sub-Modules
+## 1.Caravel SoC - Overview of Sub-Modules
 
 The **Caravel SoC**, developed by Efabless, is a System-on-Chip (SoC) harness used in the Open MPW (Multi-Project Wafer) program. It wraps around a **user project** and provides access to various system-level peripherals and interconnects such as SPI, GPIO, and Wishbone.
 
@@ -72,5 +72,79 @@ This repository documents the **four major sub-modules instantiated inside Carav
 
 > 📘 This structure makes Caravel a robust and flexible platform for integrating open-source or custom SoC designs for tapeout through the Google/Efabless shuttle program.
 
+## 2.Caravel "Management Protect" Boundary Overview
+
+The **"Management Protect" boundary** in Caravel separates the **Management SoC (`mgmt_core_wrapper`)** from the **User Project Area (`user_project_wrapper`)**.  
+It is designed to protect the management area from any faults or issues caused by user logic while enabling controlled communication.
+
+---
+
+## ✅ Signals Crossing the "Management Protect" Boundary
+
+These signals are carefully selected and controlled to maintain both isolation and communication.
+
+---
+
+### 🔹 1. Wishbone Interface Signals
+
+These are used for communication between the management core (as Wishbone master) and the user project (as Wishbone slave):
+
+| Signal Name       | Direction | Description                      |
+|-------------------|-----------|----------------------------------|
+| `wb_clk_i`        | Input     | Wishbone clock                   |
+| `wb_rst_i`        | Input     | Wishbone reset                   |
+| `wbs_stb_i`       | Input     | Strobe signal from master        |
+| `wbs_cyc_i`       | Input     | Bus cycle signal                 |
+| `wbs_we_i`        | Input     | Write enable                     |
+| `wbs_sel_i[3:0]`  | Input     | Byte select                      |
+| `wbs_dat_i[31:0]` | Input     | Data from master                 |
+| `wbs_adr_i[31:0]` | Input     | Address from master              |
+| `wbs_ack_o`       | Output    | Acknowledge from user project    |
+| `wbs_dat_o[31:0]` | Output    | Data from user project to master |
+
+---
+
+### 🔹 2. Logic Analyzer (LA) Interface
+
+Used for debugging internal user signals via the management core:
+
+| Signal Name           | Direction | Description                            |
+|------------------------|-----------|----------------------------------------|
+| `la_data_in[127:0]`    | Input     | Data from management to user project   |
+| `la_data_out[127:0]`   | Output    | Data from user project to management   |
+| `la_oenb[127:0]`       | Input     | Output enable (active low)             |
+
+---
+
+### 🔹 3. GPIO Interface
+
+Shared GPIO pins configured via the management core:
+
+| Signal Name         | Direction | Description                         |
+|----------------------|-----------|-------------------------------------|
+| `io_in[37:0]`        | Input     | GPIO inputs to user project         |
+| `io_out[37:0]`       | Output    | GPIO outputs from user project      |
+| `io_oeb[37:0]`       | Output    | Output enable (active low)          |
+
+---
+
+### 🔹 4. Interrupt Lines
+
+Allow the user project to interrupt the management core:
+
+| Signal Name     | Direction | Description                                |
+|------------------|-----------|--------------------------------------------|
+| `user_irq[2:0]`  | Output    | Interrupts from user to management core    |
+
+---
+
+### 🔹 5. Clock and Reset
+
+Global clock and reset signals passed from management core to user:
+
+| Signal Name | Direction | Description        |
+|--------------|-----------|--------------------|
+| `clk`        | Input     | System clock       |
+| `resetn`     | Input     | Active-low reset   |
 
 
