@@ -203,4 +203,15 @@ always @(posedge wb_clk_i or posedge wb_rst_i)
   else
     resetn <= 1'b1;
 ```
+#### Using an sync reset with direct assignment:
+```verilog
+reg rst_sync_1, rst_sync_2;
+
+always @(posedge wb_clk_i) begin
+  rst_sync_1 <= ~wb_rst_i;
+  rst_sync_2 <= rst_sync_1;
+end
+
+assign resetn = rst_sync_2;
+```
 
