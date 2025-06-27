@@ -1,4 +1,5 @@
 # Week-2
+![layout](./layout.png)
 ## 1.Caravel SoC - Overview of Sub-Modules
 
 The **Caravel SoC**, developed by Efabless, is a System-on-Chip (SoC) harness used in the Open MPW (Multi-Project Wafer) program. It wraps around a **user project** and provides access to various system-level peripherals and interconnects such as SPI, GPIO, and Wishbone.
