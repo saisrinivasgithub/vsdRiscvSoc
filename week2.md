@@ -1,64 +1,75 @@
-# 🚀 Caravel SoC Overview - Open MPW Project
+# Caravel SoC - Overview of Sub-Modules
 
-This repository provides a detailed explanation and support files for working with the [Caravel SoC](https://github.com/efabless/caravel), a harness developed by [efabless](https://efabless.com) that integrates user-defined digital logic with standard system peripherals like SPI, UART, GPIO, and Wishbone.
+The **Caravel SoC**, developed by Efabless, is a System-on-Chip (SoC) harness used in the Open MPW (Multi-Project Wafer) program. It wraps around a **user project** and provides access to various system-level peripherals and interconnects such as SPI, GPIO, and Wishbone.
 
-It is widely used in the **Open MPW Shuttle Program** to help developers submit ASICs using the open-source toolchain.
-
----
-
-## 📦 Major Components in Caravel
-
-Caravel is structured around **four major sub-modules**:
+This repository documents the **four major sub-modules instantiated inside Caravel**:
 
 ---
 
-### 🔧 1. `mgmt_core_wrapper`
+## 🔧 1. `mgmt_core_wrapper`
 
-- Wraps the **Management SoC** core.
-- Contains:
-  - **RISC-V CPU**
-  - **RAM**
-  - **Bootloader**
-  - Peripheral configuration logic
-- Interfaces:
-  - **Wishbone Master**
-  - **SPI, UART, GPIO configuration**
-- Acts as the **main controller** of the chip for booting, peripheral setup, and communication.
-
----
-
-### 👤 2. `user_project_wrapper`
-
-- Entry point for **user-defined digital designs**.
-- Connected to:
-  - **Wishbone slave interface** from `mgmt_core_wrapper`
-  - **GPIOs**
-- Fully customizable:
-  - Users instantiate their custom modules here.
-  - Logic is inserted in `verilog/rtl/user_project_wrapper.v`.
+- **Purpose**: Wraps the Management SoC Core.
+- **Contents**:
+  - RISC-V CPU (management core)
+  - RAM and bootloader
+  - SPI, UART, and GPIO configuration logic
+  - Wishbone master interface
+- **Function**:
+  - Acts as the control core of the chip
+  - Manages all system-level configurations
+  - Interfaces with the user project via Wishbone and GPIO
 
 ---
 
-### ⚙️ 3. `digital_core`
+## 🔧 2. `user_project_wrapper`
 
-- Contains all **digital logic interconnects**.
-- Binds together:
-  - `mgmt_core_wrapper`
-  - `user_project_wrapper`
-  - **Wishbone bus**
-  - **GPIO cells**
-- Routes signals internally and externally (to pads).
+- **Purpose**: Holds the user's custom design.
+- **Contents**:
+  - User logic
+  - Wishbone slave interface
+  - GPIO interface
+- **Function**:
+  - The main programmable logic block for user applications
+  - Receives configuration and instructions from the management SoC
+
+---
+
+## 🔧 3. `digital_core`
+
+- **Purpose**: Acts as the digital interconnect core of the chip.
+- **Contents**:
+  - Wiring and interconnection between user and management projects
+  - Internal buses (Wishbone)
+- **Function**:
+  - Routes and manages digital signals
+  - Integrates mgmt_core_wrapper, user_project_wrapper, and GPIO blocks
 
 ---
 
-### 🏠 4. `housekeeping_spi`
+## 🔧 4. `housekeeping` (or `housekeeping_spi`)
 
-- Handles **system-level communication over SPI** before the main CPU boots.
-- Key features:
-  - Communicates with the chip via SPI for initial configuration.
-  - Used to **upload firmware**, debug, or check status registers.
-- Critical during **bring-up and debugging** phases.
+- **Purpose**: Manages SPI-based system configuration and initial communication.
+- **Contents**:
+  - SPI interface
+  - Control registers
+- **Function**:
+  - Interfaces with external devices before the RISC-V core boots
+  - Enables debugging, configuration, and firmware upload
 
 ---
+
+## 📦 Summary
+
+| Sub-Module          | Main Role                                     |
+|---------------------|-----------------------------------------------|
+| mgmt_core_wrapper   | Controls the chip via RISC-V and system logic |
+| user_project_wrapper| Contains user-provided design logic           |
+| digital_core        | Manages digital connections and buses         |
+| housekeeping_spi    | Enables SPI communication and config setup    |
+
+---
+
+> 📘 This structure makes Caravel a robust and flexible platform for integrating open-source or custom SoC designs for tapeout through the Google/Efabless shuttle program.
+
 
 
