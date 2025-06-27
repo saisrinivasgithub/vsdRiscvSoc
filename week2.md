@@ -62,5 +62,19 @@ Caravel is structured around **four major sub-modules**:
 ---
 
 ## 🔗 Repository Structure (Example)
+caravel/
+├── openlane/
+│   └── user_project_wrapper/    ← Physical design configs
+├── verilog/
+│   ├── rtl/
+│   │   ├── user_project_wrapper.v  ← Your top module
+│   │   └── custom_module.v         ← Your logic
+│   └── dv/
+│       └── user_project_tb/        ← Testbench files
+├── gds/                           ← Final GDSII output
+├── def/                           ← DEF layout
+└── docs/
+    └── images/
+        └── caravel_architecture.png
 
 
