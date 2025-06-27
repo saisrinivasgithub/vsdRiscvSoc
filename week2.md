@@ -7,7 +7,7 @@ This repository documents the **four major sub-modules instantiated inside Carav
 
 ---
 
-## 🔧 1. `mgmt_core_wrapper`
+### 🔧 `mgmt_core_wrapper`
 
 - **Purpose**: Wraps the Management SoC Core.
 - **Contents**:
@@ -22,7 +22,7 @@ This repository documents the **four major sub-modules instantiated inside Carav
 
 ---
 
-## 🔧 2. `user_project_wrapper`
+### 🔧`user_project_wrapper`
 
 - **Purpose**: Holds the user's custom design.
 - **Contents**:
@@ -35,7 +35,7 @@ This repository documents the **four major sub-modules instantiated inside Carav
 
 ---
 
-## 🔧 3. `digital_core`
+### 🔧 3. `digital_core`
 
 - **Purpose**: Acts as the digital interconnect core of the chip.
 - **Contents**:
@@ -47,7 +47,7 @@ This repository documents the **four major sub-modules instantiated inside Carav
 
 ---
 
-## 🔧 4. `housekeeping` (or `housekeeping_spi`)
+### 🔧 4. `housekeeping` (or `housekeeping_spi`)
 
 - **Purpose**: Manages SPI-based system configuration and initial communication.
 - **Contents**:
@@ -59,7 +59,7 @@ This repository documents the **four major sub-modules instantiated inside Carav
 
 ---
 
-## 📦 Summary
+### 📦 Summary
 
 | Sub-Module          | Main Role                                     |
 |---------------------|-----------------------------------------------|
@@ -79,13 +79,13 @@ It is designed to protect the management area from any faults or issues caused b
 
 ---
 
-## ✅ Signals Crossing the "Management Protect" Boundary
+### ✅ Signals Crossing the "Management Protect" Boundary
 
 These signals are carefully selected and controlled to maintain both isolation and communication.
 
 ---
 
-### 🔹 1. Wishbone Interface Signals
+### 🔹Wishbone Interface Signals
 
 These are used for communication between the management core (as Wishbone master) and the user project (as Wishbone slave):
 
@@ -104,7 +104,7 @@ These are used for communication between the management core (as Wishbone master
 
 ---
 
-### 🔹 2. Logic Analyzer (LA) Interface
+### 🔹Logic Analyzer (LA) Interface
 
 Used for debugging internal user signals via the management core:
 
@@ -116,7 +116,7 @@ Used for debugging internal user signals via the management core:
 
 ---
 
-### 🔹 3. GPIO Interface
+### 🔹GPIO Interface
 
 Shared GPIO pins configured via the management core:
 
@@ -128,7 +128,7 @@ Shared GPIO pins configured via the management core:
 
 ---
 
-### 🔹 4. Interrupt Lines
+### 🔹Interrupt Lines
 
 Allow the user project to interrupt the management core:
 
@@ -138,7 +138,7 @@ Allow the user project to interrupt the management core:
 
 ---
 
-### 🔹 5. Clock and Reset
+### 🔹Clock and Reset
 
 Global clock and reset signals passed from management core to user:
 
