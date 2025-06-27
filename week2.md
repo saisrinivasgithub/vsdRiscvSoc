@@ -146,5 +146,61 @@ Global clock and reset signals passed from management core to user:
 |--------------|-----------|--------------------|
 | `clk`        | Input     | System clock       |
 | `resetn`     | Input     | Active-low reset   |
+##  3.Caravel SoC Clock and Reset Synchronization
 
+In the **Caravel SoC hierarchy**, the **reset and clock signals** originate from external inputs and are propagated internally through structured modules.  
+The **first synchronization point** of these signals is **critical** to ensure glitch-free and reliable system operation.
+
+---
+
+### ✅ Where Clock and Reset Are First Synchronized
+
+---
+
+### 🔹 Top-Level: `caravel.v`
+
+The clock and reset signals are received from external chip I/O pads:
+
+| Signal      | Description                           |
+|-------------|---------------------------------------|
+| `wb_clk_i`  | Wishbone clock input from pad         |
+| `wb_rst_i`  | Wishbone reset input (active high)    |
+
+These signals are passed into the `digital_core` module for further propagation.
+
+---
+
+### 🔹 Inside `digital_core.v`
+
+Clock and reset signals are distributed to both:
+
+- `mgmt_core_wrapper` (Management SoC)
+- `user_project_wrapper` (User Logic Area)
+
+---
+
+### 📍 Precise Synchronization Point
+
+The **first true synchronization** of reset and clock occurs inside the:
+
+### 🔸 Module: `mgmt_core_wrapper`
+
+Responsibilities of this module include:
+
+- Synchronizing the external reset (`wb_rst_i`) to the system clock
+- Generating the internal **glitch-free resetn** signal
+- Optionally managing clock gating for power control
+
+---
+
+### 🔧 Reset Synchronization Example
+
+#### Using an async reset with direct assignment:
+```verilog
+always @(posedge wb_clk_i or posedge wb_rst_i)
+  if (wb_rst_i)
+    resetn <= 1'b0;
+  else
+    resetn <= 1'b1;
+```
 
