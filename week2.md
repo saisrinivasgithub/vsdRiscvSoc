@@ -35,7 +35,7 @@ This repository documents the **four major sub-modules instantiated inside Carav
 
 ---
 
-### 🔧 3. `digital_core`
+### 🔧`digital_core`
 
 - **Purpose**: Acts as the digital interconnect core of the chip.
 - **Contents**:
@@ -47,7 +47,7 @@ This repository documents the **four major sub-modules instantiated inside Carav
 
 ---
 
-### 🔧 4. `housekeeping` (or `housekeeping_spi`)
+### 🔧`housekeeping` (or `housekeeping_spi`)
 
 - **Purpose**: Manages SPI-based system configuration and initial communication.
 - **Contents**:
